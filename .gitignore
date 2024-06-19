@@ -33,6 +33,7 @@ build/
 !**/src/test/**/build/
  
 /logs
+/allure-results
 ### VS Code ###
 .vscode/
 
