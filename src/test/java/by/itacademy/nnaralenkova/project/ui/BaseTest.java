@@ -1,9 +1,9 @@
-package org.example.ui;
+package by.itacademy.nnaralenkova.project.ui;
 
 import by.itacademy.nnaralenkova.project.loggers.TestLogger;
 import org.testng.annotations.Listeners;
 
 @Listeners(TestLogger.class)
-public class BaseTest {
+abstract public class BaseTest {
 
 }

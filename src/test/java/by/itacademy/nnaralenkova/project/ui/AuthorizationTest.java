@@ -1,4 +1,4 @@
-package org.example.ui;
+package by.itacademy.nnaralenkova.project.ui;
 
 import by.itacademy.nnaralenkova.project.pages.LoginPage;
 import by.itacademy.nnaralenkova.project.pages.MainPage;

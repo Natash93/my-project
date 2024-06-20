@@ -1,0 +1,25 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Ui Suite" thread-count="3" parallel="methods">
+
+    <test name="Cart Test">
+        <classes>
+            <class name="by.itacademy.nnaralenkova.project.ui.CartTest">
+            </class>
+        </classes>
+    </test>
+    <test name="Login Test">
+        <classes>
+            <class name="by.itacademy.nnaralenkova.project.ui.AuthorizationTest">
+            </class>
+        </classes>
+    </test>
+    <test name="Search Test">
+        <classes>
+            <class name="by.itacademy.nnaralenkova.project.ui.SearchTest">
+            </class>
+        </classes>
+    </test>
+
+</suite>

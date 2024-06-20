@@ -1,26 +1,22 @@
-package org.example.ui;
+package by.itacademy.nnaralenkova.project.ui;
 
 import by.itacademy.nnaralenkova.project.pages.CategoriesPage;
-import by.itacademy.nnaralenkova.project.pages.LoginPage;
 import by.itacademy.nnaralenkova.project.pages.MainPage;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import org.w3c.dom.stylesheets.LinkStyle;
 
-import java.util.*;
+import java.util.List;
 
-public class Tests extends BaseTest {
+public class SearchTest extends BaseTest {
     private MainPage mainPage;
-    private LoginPage loginPage;
 
     private CategoriesPage categoriesPage;
 
     @BeforeMethod
     public void setup() {
         mainPage = new MainPage();
-        loginPage = new LoginPage();
         categoriesPage = new CategoriesPage();
         mainPage.openMainPage();
         mainPage.acceptCookies();
@@ -51,24 +47,6 @@ public class Tests extends BaseTest {
                 "Prices do not match: " + prices
         );
 
-    }
-
-    @Test
-    public void addToCart() {
-        mainPage.selectPromotedCategory(3);
-        mainPage.addToCart(0);
-
-        Assert.assertEquals(mainPage.getHeaderCartCount(), "1");
-    }
-
-    @Test
-    public void checkProductInCart() {
-        mainPage.selectPromotedCategory(4);
-        mainPage.addToCart(0);
-        String productName = mainPage.getProductName(0);
-        mainPage.goToCart();
-
-        Assert.assertEquals(mainPage.getCartItemName(0), productName);
     }
 
     @AfterMethod

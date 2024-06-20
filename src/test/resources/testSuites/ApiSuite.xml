@@ -1,0 +1,31 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Api Suite" thread-count="3" parallel="methods">
+
+    <test name="Cart Test">
+        <classes>
+            <class name="by.itacademy.nnaralenkova.project.api.CartApiTest">
+            </class>
+        </classes>
+    </test>
+    <test name="Login Test">
+        <classes>
+            <class name="by.itacademy.nnaralenkova.project.api.LoginApiTest">
+            </class>
+        </classes>
+    </test>
+    <test name="Search Test">
+        <classes>
+            <class name="by.itacademy.nnaralenkova.project.api.SearchApiTests">
+            </class>
+        </classes>
+    </test>
+    <test name="Sections Test">
+        <classes>
+            <class name="by.itacademy.nnaralenkova.project.api.SectionsApiTest">
+            </class>
+        </classes>
+    </test>
+
+</suite>
