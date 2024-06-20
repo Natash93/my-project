@@ -38,7 +38,9 @@ public class MainPage extends BasePage {
 
 
     public void acceptCookies() {
-        acceptCookiesButton.click();
+        if(acceptCookiesButton.isDisplayed()){
+            acceptCookiesButton.click();
+        }
     }
 
 
