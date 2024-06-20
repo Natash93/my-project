@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Ui Suite" thread-count="3" parallel="classes">
+<suite name="Ui Suite" thread-count="1" parallel="classes">
 
     <test name="Cart Test">
         <classes>
@@ -9,7 +9,7 @@
             </class>
         </classes>
     </test>
-    <test name="Login Test">
+    <test name="Authorization Test">
         <classes>
             <class name="by.itacademy.nnaralenkova.project.ui.AuthorizationTest">
             </class>
