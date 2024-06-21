@@ -1,7 +1,10 @@
 package by.itacademy.nnaralenkova.project.pages;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
@@ -36,11 +39,13 @@ public class MainPage extends BasePage {
     @FindBy(css = "[data-testid=\"card-info-a\"]")
     private List<WebElement> productsNames;
 
+    private static final Logger LOGGER = LogManager.getLogger();
+
 
     public void acceptCookies() {
-        if(acceptCookiesButton.isDisplayed()){
+        try {
             acceptCookiesButton.click();
-        }
+        } catch (NoSuchElementException e) {LOGGER.info("AcceptCookiesButton was not shown");}
     }
 
 
