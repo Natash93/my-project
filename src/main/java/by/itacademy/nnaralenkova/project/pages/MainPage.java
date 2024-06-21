@@ -43,9 +43,12 @@ public class MainPage extends BasePage {
 
 
     public void acceptCookies() {
-        try {
+        //try {
+        new FluentWait<>(driver)
+                .withTimeout(Duration.ofSeconds(5))
+                .until((driver) -> acceptCookiesButton.isDisplayed());
             acceptCookiesButton.click();
-        } catch (NoSuchElementException e) {LOGGER.info("AcceptCookiesButton was not shown");}
+        //} catch (NoSuchElementException e) {LOGGER.info("AcceptCookiesButton was not shown");}
     }
 
 
