@@ -2,10 +2,7 @@ package by.itacademy.nnaralenkova.project.pages;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -39,16 +36,21 @@ public class MainPage extends BasePage {
     @FindBy(css = "[data-testid=\"card-info-a\"]")
     private List<WebElement> productsNames;
 
+    @FindBy(css = ".popmechanic-reset .popmechanic-close")
+    private WebElement closePromoPopupButton;
+
     private static final Logger LOGGER = LogManager.getLogger();
 
 
     public void acceptCookies() {
-        //try {
-        new FluentWait<>(driver)
-                .withTimeout(Duration.ofSeconds(5))
-                .until((driver) -> acceptCookiesButton.isDisplayed());
+        try {
+            new FluentWait<>(driver)
+                    .withTimeout(Duration.ofSeconds(5)).ignoring(NoSuchElementException.class)
+                    .until((driver) -> acceptCookiesButton.isDisplayed());
             acceptCookiesButton.click();
-        //} catch (NoSuchElementException e) {LOGGER.info("AcceptCookiesButton was not shown");}
+        } catch (NoSuchElementException e) {
+            LOGGER.info("AcceptCookiesButton was not shown");
+        }
     }
 
 
@@ -99,5 +101,15 @@ public class MainPage extends BasePage {
         cartEnterButton.click();
     }
 
-
+    public void closePromoPopup() {
+        try {
+            new FluentWait<>(driver)
+                    .withTimeout(Duration.ofSeconds(5))
+                    .ignoring(NoSuchElementException.class)
+                    .until((driver) -> closePromoPopupButton.isDisplayed());
+            closePromoPopupButton.click();
+        } catch (NoSuchElementException | TimeoutException e) {
+            LOGGER.info("No promo Popup was shown");
+        }
+    }
 }
