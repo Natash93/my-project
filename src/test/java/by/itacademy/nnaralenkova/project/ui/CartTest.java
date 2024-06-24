@@ -21,6 +21,7 @@ public class CartTest extends BaseTest {
         mainPage.closePromoPopup();
         mainPage.addToCart(0);
 
+
         Assert.assertEquals(mainPage.getHeaderCartCount(), "1");
     }
 

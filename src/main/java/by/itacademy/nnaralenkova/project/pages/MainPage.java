@@ -48,7 +48,7 @@ public class MainPage extends BasePage {
                     .withTimeout(Duration.ofSeconds(5)).ignoring(NoSuchElementException.class)
                     .until((driver) -> acceptCookiesButton.isDisplayed());
             acceptCookiesButton.click();
-        } catch (NoSuchElementException e) {
+        } catch (NoSuchElementException | TimeoutException e) {
             LOGGER.info("AcceptCookiesButton was not shown");
         }
     }

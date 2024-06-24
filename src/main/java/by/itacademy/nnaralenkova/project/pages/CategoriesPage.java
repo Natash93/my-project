@@ -35,6 +35,9 @@ public class CategoriesPage extends BasePage{
     @FindBy(id = "snackbar-container")
     private WebElement snackbarLayout;
 
+    /*@FindBy (css = ".SearchSuggestList_listItem__C2I5H .TextHighlight_highlight__p0c_a")
+    private WebElement suggestedGlucofons;*/
+
     public String getCategoryName() {
         return categoryName.getText();
     }
