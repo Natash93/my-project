@@ -45,7 +45,7 @@ public class MainPage extends BasePage {
     public void acceptCookies() {
         try {
             new FluentWait<>(driver)
-                    .withTimeout(Duration.ofSeconds(5)).ignoring(NoSuchElementException.class)
+                    .withTimeout(Duration.ofSeconds(10)).ignoring(NoSuchElementException.class)
                     .until((driver) -> acceptCookiesButton.isDisplayed());
             acceptCookiesButton.click();
         } catch (NoSuchElementException | TimeoutException e) {
@@ -104,7 +104,7 @@ public class MainPage extends BasePage {
     public void closePromoPopup() {
         try {
             new FluentWait<>(driver)
-                    .withTimeout(Duration.ofSeconds(5))
+                    .withTimeout(Duration.ofSeconds(10))
                     .ignoring(NoSuchElementException.class)
                     .until((driver) -> closePromoPopupButton.isDisplayed());
             closePromoPopupButton.click();
