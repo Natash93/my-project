@@ -1,7 +1,9 @@
 package by.itacademy.nnaralenkova.project.pages;
 
 import by.itacademy.nnaralenkova.project.util.DriverManager;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
 public abstract class BasePage {
@@ -18,5 +20,9 @@ public abstract class BasePage {
 
     public void quit() {
         DriverManager.quitDriver();
+    }
+
+    protected void clickWithJS(WebElement element) {
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
     }
 }

@@ -35,24 +35,20 @@ public class CategoriesPage extends BasePage{
     @FindBy(id = "snackbar-container")
     private WebElement snackbarLayout;
 
-    /*@FindBy (css = ".SearchSuggestList_listItem__C2I5H .TextHighlight_highlight__p0c_a")
-    private WebElement suggestedGlucofons;*/
 
     public String getCategoryName() {
         return categoryName.getText();
     }
 
     public void chooseFirstSuggestedItem(String text) {
-        WebElement firstSuggestedItem = driver.findElement(By.xpath("//*[@class=\"SearchSuggestList_listItem__C2I5H\"][1]//*[text() = \"" + text + "\"]"));
         new FluentWait<>(driver)
                 .withTimeout(Duration.ofSeconds(10))
-                .until((t) -> firstSuggestedItem.isDisplayed());
-
-        firstSuggestedItem.click();
-    }
-
-    private void clickWithJS(WebElement element) {
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+                .until((t) -> {
+                    WebElement firstSuggestedItem = driver.findElement(By.xpath("//*[@class=\"SearchSuggestList_listItem__C2I5H\"][1]//*[text() = \"" + text + "\"]"));
+                    boolean isDisplayed = firstSuggestedItem.isDisplayed();
+                    if (isDisplayed) firstSuggestedItem.click();
+                    return isDisplayed;
+                });
     }
 
     public void setMinPrice(String min) {

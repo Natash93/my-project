@@ -18,9 +18,8 @@ public class CartTest extends BaseTest {
     @Test
     public void addToCart() {
         mainPage.selectPromotedCategory(3);
-        mainPage.closePromoPopup();
+        //mainPage.closePromoPopup();
         mainPage.addToCart(0);
-
 
         Assert.assertEquals(mainPage.getHeaderCartCount(), "1");
     }
@@ -28,7 +27,7 @@ public class CartTest extends BaseTest {
     @Test
     public void checkProductInCart() {
         mainPage.selectPromotedCategory(4);
-        mainPage.closePromoPopup();
+        //mainPage.closePromoPopup();
         mainPage.addToCart(0);
         String productName = mainPage.getProductName(0);
         mainPage.goToCart();

@@ -76,8 +76,9 @@ public class MainPage extends BasePage {
     }
 
     public void addToCart(int index) {
-        scrollToElement(addToCartButtons.get(index));
-        addToCartButtons.get(index).click();
+        clickWithJS(addToCartButtons.get(index));
+        /*scrollToElement(addToCartButtons.get(index));
+        addToCartButtons.get(index).click();*/
         new FluentWait<>(driver)
                 .withTimeout(Duration.ofSeconds(5))
                 .until((driver) -> addedToCartButton.isDisplayed());
