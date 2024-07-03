@@ -14,6 +14,7 @@ public class SearchTest extends BaseTest {
 
     private CategoriesPage categoriesPage;
 
+
     @BeforeMethod
     public void setup() {
         mainPage = new MainPage();
@@ -48,6 +49,7 @@ public class SearchTest extends BaseTest {
         );
 
     }
+
 
     @AfterMethod
     public void quit() {

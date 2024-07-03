@@ -3,6 +3,7 @@ package by.itacademy.nnaralenkova.project.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.FluentWait;
 
@@ -35,6 +36,15 @@ public class CategoriesPage extends BasePage{
     @FindBy(id = "snackbar-container")
     private WebElement snackbarLayout;
 
+    @FindBy (css = ".styles_catalogButton__z9L_j")
+    private WebElement openCatalogueButton;
+
+    @FindBy(className = "styles_categoryButton__BbUU3")
+    private List<WebElement> categoriesInCatalogue;
+
+    @FindBy(xpath = "//*[@href = \"https://www.21vek.by/bikes/\"]")
+    private WebElement subcategory;
+
 
     public String getCategoryName() {
         return categoryName.getText();
@@ -49,6 +59,21 @@ public class CategoriesPage extends BasePage{
                     if (isDisplayed) firstSuggestedItem.click();
                     return isDisplayed;
                 });
+    }
+     public void openCatalogue (){
+         openCatalogueButton.click();
+     }
+    public void pickCategoryInCatalogue(int index) {
+        scrollToElement(categoriesInCatalogue.get(index));
+        categoriesInCatalogue.get(index).click();
+    }
+    private void scrollToElement(WebElement element) {
+        Actions actions = new Actions(driver);
+        actions.moveToElement(element).perform();
+    }
+    public void chooseSubcategory(){
+        scrollToElement(subcategory);
+        subcategory.click();
     }
 
     public void setMinPrice(String min) {
