@@ -3,6 +3,7 @@ package by.itacademy.nnaralenkova.project.ui;
 import by.itacademy.nnaralenkova.project.pages.LoginPage;
 import by.itacademy.nnaralenkova.project.pages.MainPage;
 import org.testng.Assert;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -20,31 +21,45 @@ public class AuthorizationTest extends BaseTest {
     }
 
     @Test
-    public void invalidEmailLoginTest() {
-        loginPage.openEmailLoginForm();
+    public void testUnregisteredEmailLogin() {
+        mainPage.openEmailLoginForm();
         loginPage.loginWithCredentials("123@qq.hh", "qwertyu");
 
         Assert.assertEquals(loginPage.getWrongCredsErrorMessage(), "Проверьте электронную почту или \nзарегистрируйтесь");
     }
 
     @Test
-    public void emptyPasswordLoginTest() {
-        loginPage.openEmailLoginForm();
+    public void testEmptyPasswordLogin() {
+        mainPage.openEmailLoginForm();
         loginPage.loginWithCredentials("123@qq.hh", "");
 
         Assert.assertEquals(loginPage.getEmptyPasswordErrorMessage(), "Пароль не указан");
     }
 
     @Test
-    public void wrongPasswordLoginTest() {
-        loginPage.openEmailLoginForm();
+    public void testWrongPasswordLogin() {
+        mainPage.openEmailLoginForm();
         loginPage.loginWithCredentials("123@qq.hh", "!");
 
         Assert.assertEquals(loginPage.getEmptyPasswordErrorMessage(), "Неправильный пароль. \nСбросить пароль?");
     }
 
+    @Test
+    public void testExistingCredsLogin() {
+        String email = "n79372122@gmail.com";
+        String password = "94f64ef4";
+        mainPage.openEmailLoginForm();
+        loginPage.loginWithCredentials(email, password, true);
+        mainPage.openLoginForm();
+
+        Assert.assertEquals(loginPage.getUserDropDownTitle(), "Аккаунт");
+        Assert.assertEquals(loginPage.getUserDropDownSubtitle(), email);
+    }
+
     @AfterMethod
-    public void quit() {
+    @Override
+    public void afterMethod(ITestResult result) {
+        super.afterMethod(result);
         mainPage.quit();
     }
 }

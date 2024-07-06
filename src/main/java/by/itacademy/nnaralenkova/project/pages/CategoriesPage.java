@@ -1,21 +1,21 @@
 package by.itacademy.nnaralenkova.project.pages;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.FluentWait;
 
 import java.time.Duration;
 import java.util.List;
 
-public class CategoriesPage extends BasePage{
+public class CategoriesPage extends BasePage {
+    private static final Logger LOGGER = LogManager.getLogger();
 
-    @FindBy(css = ".styles_catalogButton__z9L_j")
-    private WebElement catalogueEnterButton;
-
-    @FindBy(css = "[data-testid=\"category-name\"]")
+    @FindBy(xpath = "//*[@data-testid=\"category-name\"]")
     private WebElement categoryName;
 
     @FindBy(id = "minPrice")
@@ -24,10 +24,7 @@ public class CategoriesPage extends BasePage{
     @FindBy(id = "maxPrice")
     private WebElement maxPriceInput;
 
-    @FindBy(css = "[data-testid=\"apply-products-filters\"]")
-    private WebElement applyFiltersButton;
-
-    @FindBy(css = "p[data-testid=\"card-current-price\"]")
+    @FindBy(xpath = "//p[@data-testid=\"card-current-price\"]")
     private List<WebElement> productsPrices;
 
     @FindBy(css = "#snackbar-container>div")
@@ -36,22 +33,54 @@ public class CategoriesPage extends BasePage{
     @FindBy(id = "snackbar-container")
     private WebElement snackbarLayout;
 
-    @FindBy (css = ".styles_catalogButton__z9L_j")
-    private WebElement openCatalogueButton;
-
     @FindBy(className = "styles_categoryButton__BbUU3")
     private List<WebElement> categoriesInCatalogue;
 
     @FindBy(xpath = "//*[@href = \"https://www.21vek.by/bikes/\"]")
     private WebElement subcategory;
 
+    @FindBy(css = ".popmechanic-reset .popmechanic-close")
+    private WebElement closePromoPopupButton;
+
+    @FindBy(className = "ListingProduct_product__WBPsd")
+    private List<WebElement> productCardsInCategory;
+
+    @FindBy(css = "[data-testid=\"card-info-a\"]")
+    private List<WebElement> productsNames;
 
     public String getCategoryName() {
         return categoryName.getText();
     }
 
+    public void closePromoPopup() {
+        try {
+            waitUntil(10, (driver) -> closePromoPopupButton.isDisplayed());
+            closePromoPopupButton.click();
+        } catch (NoSuchElementException | TimeoutException e) {
+            LOGGER.info("No promo Popup was shown");
+        }
+    }
+
+    public void addToCart(int... indexes) {
+        for (int i : indexes) {
+            addToCart(i);
+        }
+    }
+
+    public void addToCart(int index) {
+        WebElement addToCartButton = productCardsInCategory.get(index)
+                .findElement(By.cssSelector("button[data-testid=\"in-basket-button\"]"));
+        scrollToElement(addToCartButton);
+        addToCartButton.click();
+
+        WebElement addedToCartButton = productCardsInCategory.get(index)
+                .findElement(By.className("Button-module__pink-secondary"));
+        waitUntil((driver) -> addedToCartButton != null);
+    }
+
     public void chooseFirstSuggestedItem(String text) {
         new FluentWait<>(driver)
+                .ignoring(NoSuchElementException.class)
                 .withTimeout(Duration.ofSeconds(10))
                 .until((t) -> {
                     WebElement firstSuggestedItem = driver.findElement(By.xpath("//*[@class=\"SearchSuggestList_listItem__C2I5H\"][1]//*[text() = \"" + text + "\"]"));
@@ -60,18 +89,13 @@ public class CategoriesPage extends BasePage{
                     return isDisplayed;
                 });
     }
-     public void openCatalogue (){
-         openCatalogueButton.click();
-     }
+
     public void pickCategoryInCatalogue(int index) {
         scrollToElement(categoriesInCatalogue.get(index));
         categoriesInCatalogue.get(index).click();
     }
-    private void scrollToElement(WebElement element) {
-        Actions actions = new Actions(driver);
-        actions.moveToElement(element).perform();
-    }
-    public void chooseSubcategory(){
+
+    public void chooseSubcategory() {
         scrollToElement(subcategory);
         subcategory.click();
     }
@@ -86,10 +110,6 @@ public class CategoriesPage extends BasePage{
         maxPriceInput.sendKeys(max);
     }
 
-    public void applyFilters() {
-        applyFiltersButton.click();
-    }
-
     public List<Integer> getProductsPrices() {
         return productsPrices.stream()
                 .map((el) -> el.getText())
@@ -98,14 +118,14 @@ public class CategoriesPage extends BasePage{
     }
 
     public void waitForSnackbar() {
-        new FluentWait<>(driver)
-                .withTimeout(Duration.ofSeconds(10))
-                .until((t) -> snackbar.isDisplayed());
+        waitUntil((t) -> snackbar.isDisplayed());
     }
 
     public void waitForSnackbarDismissed() {
-        new FluentWait<>(driver)
-                .withTimeout(Duration.ofSeconds(10)).pollingEvery(Duration.ofMillis(50))
-                .until((t) -> snackbarLayout.findElements(By.tagName("div")).isEmpty());
+        waitUntil((t) -> snackbarLayout.findElements(By.tagName("div")).isEmpty());
+    }
+
+    public String getProductName(int index) {
+        return productsNames.get(index).getText();
     }
 }

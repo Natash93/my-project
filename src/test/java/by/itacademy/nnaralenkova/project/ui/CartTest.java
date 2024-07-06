@@ -4,6 +4,7 @@ import by.itacademy.nnaralenkova.project.pages.CartPage;
 import by.itacademy.nnaralenkova.project.pages.CategoriesPage;
 import by.itacademy.nnaralenkova.project.pages.MainPage;
 import org.testng.Assert;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -23,12 +24,13 @@ public class CartTest extends BaseTest {
     }
 
     @Test
-    public void addToCart() {
+    public void testAddToCartAndClickPlaceOrder() {
         mainPage.selectPromotedCategory(3);
-        mainPage.closePromoPopup();
-        cartPage.addToCart(0);
+        categoriesPage.closePromoPopup();
+        categoriesPage.addToCart(0);
 
-        Assert.assertEquals(cartPage.getHeaderCartCount(), "1");
+        Assert.assertEquals(mainPage.getHeaderCartCount(), "1");
+
         mainPage.goToCart();
         cartPage.placeAnOrder();
 
@@ -36,33 +38,37 @@ public class CartTest extends BaseTest {
     }
 
     @Test
-    public void checkProductInCart() {
+    public void checkProductAddedToCart() {
         mainPage.selectPromotedCategory(4);
-        mainPage.closePromoPopup();
-        cartPage.addToCart(0);
-        String productName = mainPage.getProductName(0);
+        categoriesPage.closePromoPopup();
+        categoriesPage.addToCart(0);
+        String productName = categoriesPage.getProductName(0);
         mainPage.goToCart();
 
         Assert.assertEquals(cartPage.getCartItemName(0), productName);
     }
 
     @Test
-    public void deleteProductFromCart() {
-        categoriesPage.openCatalogue();
+    public void checkAddFromCatalogueAndDeleteFromCart() {
+        mainPage.openCatalogue();
         categoriesPage.pickCategoryInCatalogue(14);
-        mainPage.closePromoPopup();
+        categoriesPage.closePromoPopup();
         categoriesPage.chooseSubcategory();
+        categoriesPage.addToCart(5, 7, 13, 24);
 
-        cartPage.addToCart(5, 7, 13, 24);
-        Assert.assertEquals(cartPage.getHeaderCartCount(), "4");
+        Assert.assertEquals(mainPage.getHeaderCartCount(), "4");
+
         mainPage.goToCart();
         cartPage.deleteFromCart(0);
         cartPage.deleteFromCart(0);
-        Assert.assertEquals(cartPage.getHeaderCartCount(), "2");
+
+        Assert.assertEquals(mainPage.getHeaderCartCount(), "2");
     }
 
     @AfterMethod
-    public void quit() {
+    @Override
+    public void afterMethod(ITestResult result) {
+        super.afterMethod(result);
         mainPage.quit();
     }
 }

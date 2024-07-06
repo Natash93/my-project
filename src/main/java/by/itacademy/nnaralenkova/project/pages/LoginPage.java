@@ -5,13 +5,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.FluentWait;
 
 import java.time.Duration;
+import java.util.List;
 
 public class LoginPage extends BasePage {
-    @FindBy(css = ".userToolsText")
-    private WebElement loginLink;
-
-    @FindBy(css = "button[data-testid='loginButton']")
-    private WebElement signInButton;
 
     @FindBy(id = "login-email")
     private WebElement emailInputField;
@@ -28,11 +24,14 @@ public class LoginPage extends BasePage {
     @FindBy(css = ".ErrorMessage-module__message")
     private WebElement emptyPasswordErrorMessage;
 
+    @FindBy(xpath = "//div[@class = \"userToolsTitle\"]")
+    private WebElement userDropDownTitle;
 
-    public void openEmailLoginForm() {
-        loginLink.click();
-        signInButton.click();
-    }
+    @FindBy(xpath = "//span[@class = \"userToolsSubtitle\"]")
+    private WebElement userDropDownSubtitle;
+
+    @FindBy(xpath = "//div[@data-testid=\"modal\"]")
+    private List<WebElement> signInDialogue;
 
     public void inputCredentials(String email, String password) {
         emailInputField.sendKeys(email);
@@ -44,19 +43,29 @@ public class LoginPage extends BasePage {
         loginButton.click();
     }
 
+    public void loginWithCredentials(String email, String password, boolean waitToDialogueClosed) {
+        loginWithCredentials(email, password);
+        if (waitToDialogueClosed) {
+            waitUntil((d) -> signInDialogue.isEmpty());
+        }
+    }
+
     public String getWrongCredsErrorMessage() {
-        new FluentWait<>(driver)
-                .withTimeout(Duration.ofSeconds(5))
-                .until((t) -> wrongEmailOrPasswordErrorMessage.isDisplayed());
+        waitUntil((t) -> wrongEmailOrPasswordErrorMessage.isDisplayed());
         return wrongEmailOrPasswordErrorMessage.getText();
     }
 
     public String getEmptyPasswordErrorMessage() {
-        new FluentWait<>(driver)
-                .withTimeout(Duration.ofSeconds(5))
-                .until((t) -> emptyPasswordErrorMessage.isDisplayed());
+        waitUntil((t) -> emptyPasswordErrorMessage.isDisplayed());
         return emptyPasswordErrorMessage.getText();
     }
 
+    public String getUserDropDownTitle() {
+        return userDropDownTitle.getText();
+    }
+
+    public String getUserDropDownSubtitle() {
+        return userDropDownSubtitle.getText();
+    }
 
 }

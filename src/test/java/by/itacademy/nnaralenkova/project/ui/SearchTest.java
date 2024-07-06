@@ -3,6 +3,7 @@ package by.itacademy.nnaralenkova.project.ui;
 import by.itacademy.nnaralenkova.project.pages.CategoriesPage;
 import by.itacademy.nnaralenkova.project.pages.MainPage;
 import org.testng.Assert;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -11,9 +12,7 @@ import java.util.List;
 
 public class SearchTest extends BaseTest {
     private MainPage mainPage;
-
     private CategoriesPage categoriesPage;
-
 
     @BeforeMethod
     public void setup() {
@@ -24,7 +23,7 @@ public class SearchTest extends BaseTest {
     }
 
     @Test
-    public void productSearch() {
+    public void checkProductSearchAndPriceFilter() {
         String input = "Глюкофоны";
         mainPage.inputSearchInputFieldWithJs(input);
         categoriesPage.chooseFirstSuggestedItem(input);
@@ -47,12 +46,12 @@ public class SearchTest extends BaseTest {
                 (price) -> price < 200 || price > 300,
                 "Prices do not match: " + prices
         );
-
     }
 
-
     @AfterMethod
-    public void quit() {
+    @Override
+    public void afterMethod(ITestResult result) {
+        super.afterMethod(result);
         mainPage.quit();
     }
 }

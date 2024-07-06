@@ -14,6 +14,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <allure.version>2.24.0</allure.version>
+        <aspectj.version>1.9.22</aspectj.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -84,6 +85,12 @@
             <artifactId>selenium-java</artifactId>
             <version>4.19.1</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.9.22</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -104,6 +111,7 @@
                         <!--suppress UnresolvedMavenProperty -->
                         <suiteXmlFile>src/test/resources/testSuites/${suite}.xml</suiteXmlFile>
                     </suiteXmlFiles>
+                    <argLine> -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar" </argLine>
                 </configuration>
             </plugin>
         </plugins>
