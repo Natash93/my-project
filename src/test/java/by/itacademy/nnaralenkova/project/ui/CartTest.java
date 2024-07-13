@@ -27,7 +27,7 @@ public class CartTest extends BaseTest {
     public void testAddToCartAndClickPlaceOrder() {
         mainPage.selectPromotedCategory(3);
         categoriesPage.closePromoPopup();
-        categoriesPage.addToCart(0);
+        categoriesPage.addToCart(2);
 
         Assert.assertEquals(mainPage.getHeaderCartCount(), "1");
 
@@ -41,7 +41,7 @@ public class CartTest extends BaseTest {
     public void checkProductAddedToCart() {
         mainPage.selectPromotedCategory(4);
         categoriesPage.closePromoPopup();
-        categoriesPage.addToCart(0);
+        categoriesPage.addToCart(1);
         String productName = categoriesPage.getProductName(0);
         mainPage.goToCart();
 
@@ -54,7 +54,7 @@ public class CartTest extends BaseTest {
         categoriesPage.pickCategoryInCatalogue(14);
         categoriesPage.closePromoPopup();
         categoriesPage.chooseSubcategory();
-        categoriesPage.addToCart(5, 7, 13, 24);
+        categoriesPage.addToCart(5, 7, 13, 26);
 
         Assert.assertEquals(mainPage.getHeaderCartCount(), "4");
 
