@@ -33,3 +33,30 @@ To generate and observe Allure reports, in a Terminal run
 on Windows
 
 `allure.bat serve`
+
+
+## Project structure
+
+/main
+
+--/java/by/itacademy/nnaralenkova/project
+  
+----/loggers
+    
+----/pages - Page Object pattern implementations
+    
+----/util - DriverManager, DriverFactory
+    
+--/resources - `log4j2.properties`
+  
+/test
+
+--/java/by/itacademy/nnaralenkova/project
+
+----/api - API tests
+    
+----/ui - UI tests
+    
+--/resources - `allure.properties`
+  
+----/testSuites - ApiSuite, UiSuite
