@@ -2,6 +2,7 @@ package by.itacademy.nnaralenkova.project.pages;
 
 import by.itacademy.nnaralenkova.project.util.DriverManager;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -41,6 +42,7 @@ public abstract class BasePage {
 
     protected void waitUntil(int waitInSec, Function<WebDriver, Boolean> isTrue){
         new FluentWait<>(driver)
+                .ignoring(NoSuchElementException.class)
                 .pollingEvery(Duration.ofMillis(DEFAULT_POLLING_INTERVAL))
                 .withTimeout(Duration.ofSeconds(waitInSec))
                 .until(isTrue);
