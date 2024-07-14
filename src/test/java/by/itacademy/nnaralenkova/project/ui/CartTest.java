@@ -42,7 +42,7 @@ public class CartTest extends BaseTest {
         mainPage.selectPromotedCategory(4);
         categoriesPage.closePromoPopup();
         categoriesPage.addToCart(1);
-        String productName = categoriesPage.getProductName(0);
+        String productName = categoriesPage.getProductName(1);
         mainPage.goToCart();
 
         Assert.assertEquals(cartPage.getCartItemName(0), productName);

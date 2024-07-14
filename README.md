@@ -6,6 +6,16 @@ It consists of:
 * API tests in REST-assured
 * Allure plugin for reports generation
 
+## Frameworks and tools
+
+* **Selenium** for UI tests
+* **Rest-assured** for API tests
+* **TestNG** for writing and running tests
+* **Maven** for building and running suites
+* **Log4j** for logs output
+* **Allure** for reports generation
+* **AspectJ** for Allure screenshots attachements
+
 ## How to run
 
 Requires Java 16 to run.
