@@ -16,9 +16,9 @@ public class CartApiTest {
     @Test
     public void testAddToCart() {
         given().log().uri().header("Accept", "application/json").cookie(
-                        "accessToken", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxNDQ4NTQwNyIsImFubyI6MCwiaWF0IjoxNzIwMjcyMTc1Ljg3MTIzNCwiZXhwIjoxNzIwMjcyNzc1Ljg3MTIzNCwidmVyIjowLjF9.CY6LCuEn-R_NKEvg7v9FMz2hIPKt8Qj5VrIsgyRGpaM"
+                        "accessToken", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ2ZXIiOjAuMSwiaWF0IjoxNzIxMTMzMjc1LCJzdWIiOiIzNmM1ZDBkZS03YzA3LTQ3NTItYjNmNi04MTRlZTlmYzJlMTgiLCJleHAiOjE3NTI2ODAwNzUsImFubyI6MX0.X8t1Tx1QeBEDlCnSDjtoacnVNmaTCVjph9NuJehhtZQ"
                 ).cookie(
-                        "refreshToken", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI3Y2Y2OWU1NS1mYjg0LTRhOGMtOGUxZi0wYTEyMzk5YTMxMjEiLCJzdWIiOiIxNDQ4NTQwNyIsImFubyI6MCwiaWF0IjoxNzIwMjcxNTYzLjMwMjA0MSwiZXhwIjoxNzUxODA3NTYzLjMwMjA0MSwidmVyIjowLjEsInByZW1pdW0iOjB9.WFA_yDLjAX5U_SdSKP0j2mGnLI-QQUskd-VyqHIdkeg"
+                        "refreshToken", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ2ZXIiOjAuMSwiaWF0IjoxNzIxMTMzMjc1LCJqdGkiOiIzNmM1ZDBkZS03YzA3LTQ3NTItYjNmNi04MTRlZTlmYzJlMTgiLCJleHAiOjE3NTI2ODAwNzUsImFubyI6MX0.5WhZpJP1lcJOiG7nIfLnT5MbU7WydxJSEjTRZkAEWk8"
                 )
                 .contentType(ContentType.JSON)
                 .body("{\"id\": 8932393, \"type\": \"product\"}")
